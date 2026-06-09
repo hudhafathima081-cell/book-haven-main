@@ -7,6 +7,7 @@ import NotFound from "./pages/NotFound";
 import BookPage from "./pages/BookPage";
 import Auth from "./pages/Auth";
 import AdminBookForm from "./pages/AdminBookForm";
+import Reader from "./pages/Reader";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
 <Route path="/join" element={<Auth />} />
 <Route path="/admin/books/new" element={<AdminBookForm />} />
         <Route path="*" element={<NotFound />} />
+        <Route path="/reader/:id" element={<Reader />} />
         
       </Routes>
     </Router>
