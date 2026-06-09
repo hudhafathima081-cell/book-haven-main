@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { PaymentModal } from "@/components/PaymentModal.tsx";
+import PremiumCheckoutModal from "@/components/PremiumCheckoutModal";
 
 import {
   Star,
@@ -244,12 +244,12 @@ const BookDetail = () => {
         </div>
 
       </div>
-<PaymentModal
+<PremiumCheckoutModal
   open={paymentOpen}
-  onOpenChange={setPaymentOpen}
+  onClose={() => setPaymentOpen(false)}
+  onSuccess={handleBuy}
   bookTitle={book.title}
   price={book.price}
-  onSuccess={handleBuy}
 />
     </div>
   );

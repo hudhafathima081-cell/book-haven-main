@@ -94,7 +94,7 @@ export const Navbar = () => {
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={() => navigate("/signin")}
+                onClick={() => navigate("/auth")}
               >
                 Sign in
               </Button>

@@ -14,28 +14,25 @@ function App() {
     <Router>
       <Routes>
 
-        {/* Home */}
         <Route path="/" element={<Index />} />
 
-        {/* Library */}
         <Route path="/library" element={<Library />} />
 
-        {/* Book Detail */}
         <Route path="/book/:id" element={<BookDetail />} />
 
-        {/* Reader */}
         <Route path="/reader/:id" element={<Reader />} />
 
-        {/* Auth Pages */}
+        <Route path="/admin" element={<Admin />} />
+
+        <Route path="/admin/books/new" element={<AdminBookForm />} />
+
+        {/* AUTH */}
         <Route path="/auth" element={<Auth />} />
+
+        {/* OLD LINKS REDIRECT */}
         <Route path="/signin" element={<Auth />} />
         <Route path="/join" element={<Auth />} />
 
-        {/* Admin */}
-        <Route path="/admin" element={<Admin />} />
-        <Route path="/admin/books/new" element={<AdminBookForm />} />
-
-        {/* 404 */}
         <Route path="*" element={<NotFound />} />
 
       </Routes>
