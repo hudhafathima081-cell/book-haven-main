@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { PaymentModal } from "@/components/PaymentModel.tsx";
 
 import {
   Star,
@@ -32,6 +33,8 @@ const BookDetail = () => {
   const [owned, setOwned] = useState(false);
 
   const [buying, setBuying] = useState(false);
+
+  const [paymentOpen, setPaymentOpen] = useState(false);
 
   useEffect(() => {
     if (!id) return;
@@ -204,24 +207,21 @@ const BookDetail = () => {
 
               ) : (
 
-                <Button
-                  size="lg"
-                  onClick={handleBuy}
-                  disabled={buying}
-                  className="bg-yellow-500 hover:bg-yellow-400 text-black"
-                >
+               <Button
+  size="lg"
+  onClick={() => {
+    if (!user) {
+      navigate("/auth");
+      return;
+    }
 
-                  {buying ? (
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                  ) : (
-                    <>
-                      <Lock className="mr-2 h-4 w-4" />
-
-                      Unlock for ${book.price}
-                    </>
-                  )}
-
-                </Button>
+    setPaymentOpen(true);
+  }}
+  className="bg-gradient-amber text-primary-foreground shadow-glow hover:opacity-95"
+>
+  <Lock className="mr-1 h-4 w-4" />
+  Unlock for ₹{book.price}
+</Button>
 
               )}
 
