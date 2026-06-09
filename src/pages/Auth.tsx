@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 export default function Auth() {
   const navigate = useNavigate();
 
-  const [isSignup, setIsSignup] = useState(false);
+  const [isSignup, setIsSignup] = useState(true);
 
   return (
     <div className="min-h-screen bg-[#070B14] text-white flex items-center justify-center p-6">
