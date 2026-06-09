@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* === Lumen Library — Audible-inspired dark premium design system === */
+@layer base {
+  :root {
+    /* Deep night canvas */
+    --background: 230 25% 6%;
+    --foreground: 40 30% 95%;
+
+    --card: 230 22% 9%;
+    --card-foreground: 40 30% 95%;
+
+    --popover: 230 25% 8%;
+    --popover-foreground: 40 30% 95%;
+
+    /* Warm amber accent */
+    --primary: 35 95% 58%;
+    --primary-foreground: 230 30% 8%;
+    --primary-glow: 28 100% 65%;
+
+    --secondary: 230 18% 14%;
+    --secondary-foreground: 40 30% 95%;
+
+    --muted: 230 16% 13%;
+    --muted-foreground: 40 10% 65%;
+
+    --accent: 35 95% 58%;
+    --accent-foreground: 230 30% 8%;
+
+    --destructive: 0 75% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 230 18% 16%;
+    --input: 230 18% 14%;
+    --ring: 35 95% 58%;
+
+    --radius: 1rem;
+
+    /* Gradients */
+    --gradient-hero: radial-gradient(ellipse at top, hsl(35 95% 58% / 0.18), transparent 60%),
+                     radial-gradient(ellipse at bottom left, hsl(280 80% 55% / 0.12), transparent 50%),
+                     linear-gradient(180deg, hsl(230 25% 6%), hsl(230 30% 4%));
+    --gradient-amber: linear-gradient(135deg, hsl(35 95% 58%), hsl(20 95% 55%));
+    --gradient-glass: linear-gradient(135deg, hsl(230 30% 14% / 0.6), hsl(230 30% 8% / 0.4));
+    --gradient-spine: linear-gradient(180deg, hsl(230 30% 14%), hsl(230 35% 6%));
+
+    /* Shadows */
+    --shadow-glow: 0 20px 60px -15px hsl(35 95% 58% / 0.45);
+    --shadow-card: 0 30px 60px -20px hsl(0 0% 0% / 0.6), 0 0 0 1px hsl(40 30% 95% / 0.04);
+    --shadow-book: 0 25px 50px -12px hsl(0 0% 0% / 0.7);
+
+    --transition-smooth: 350ms cubic-bezier(0.22, 1, 0.36, 1);
+
+    /* Reader paper theme */
+    --reader-bg: 38 35% 95%;
+    --reader-fg: 30 25% 12%;
+  }
+
+  /* Reader light theme override (when reader-light class on root) */
+  .reader-light {
+    --background: var(--reader-bg);
+    --foreground: var(--reader-fg);
+  }
+
+  * { @apply border-border; }
+  html, body, #root { @apply min-h-screen; }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  h1, h2, h3, .font-display { font-family: 'Fraunces', Georgia, serif; letter-spacing: -0.01em; }
+}
+
+@layer components {
+  .glass {
+    background: var(--gradient-glass);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    border: 1px solid hsl(40 30% 95% / 0.06);
+  }
+  .text-gradient-amber {
+    background: var(--gradient-amber);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .book-cover {
+    box-shadow: var(--shadow-book);
+    transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
+  }
+  .book-cover:hover { transform: translateY(-6px) scale(1.02); box-shadow: var(--shadow-glow); }
+}
+
+@layer utilities {
+  .scrollbar-none::-webkit-scrollbar { display: none; }
+  .scrollbar-none { scrollbar-width: none; }
+}
