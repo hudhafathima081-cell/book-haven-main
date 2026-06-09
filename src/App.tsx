@@ -13,15 +13,31 @@ function App() {
   return (
     <Router>
       <Routes>
+
+        {/* Home */}
         <Route path="/" element={<Index />} />
-        <Route path="/admin" element={<Admin />} />
+
+        {/* Library */}
         <Route path="/library" element={<Library />} />
+
+        {/* Book Detail */}
         <Route path="/book/:id" element={<BookDetail />} />
+
+        {/* Reader */}
+        <Route path="/reader/:id" element={<Reader />} />
+
+        {/* Auth Pages */}
+        <Route path="/auth" element={<Auth />} />
         <Route path="/signin" element={<Auth />} />
         <Route path="/join" element={<Auth />} />
+
+        {/* Admin */}
+        <Route path="/admin" element={<Admin />} />
         <Route path="/admin/books/new" element={<AdminBookForm />} />
-        <Route path="/reader/:id" element={<Reader />} />
+
+        {/* 404 */}
         <Route path="*" element={<NotFound />} />
+
       </Routes>
     </Router>
   );

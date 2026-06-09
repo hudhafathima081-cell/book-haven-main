@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { PaymentModal } from "@/components/PaymentModel.tsx";
+import { PaymentModal } from "@/components/PaymentModal.tsx";
 
 import {
   Star,
