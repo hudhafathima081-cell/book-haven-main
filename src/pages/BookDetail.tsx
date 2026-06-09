@@ -244,7 +244,13 @@ const BookDetail = () => {
         </div>
 
       </div>
-
+<PaymentModal
+  open={paymentOpen}
+  onOpenChange={setPaymentOpen}
+  bookTitle={book.title}
+  price={book.price}
+  onSuccess={handleBuy}
+/>
     </div>
   );
 };
