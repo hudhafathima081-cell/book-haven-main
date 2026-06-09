@@ -127,13 +127,22 @@ export default function Auth() {
 
                   <div className="flex items-center gap-3">
 
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white shadow-md">
 
-                      <span className="font-bold text-black">
-                        G<span className="text-blue-500">Pay</span>
-                      </span>
+  <span className="text-lg font-semibold tracking-tight">
+    <span className="text-blue-500">G</span>
+    <span className="text-red-500">o</span>
+    <span className="text-yellow-500">o</span>
+    <span className="text-blue-500">g</span>
+    <span className="text-green-500">l</span>
+    <span className="text-red-500">e</span>
 
-                    </div>
+    <span className="ml-1 text-black">
+      Pay
+    </span>
+  </span>
+
+</div>
 
                     <div>
                       <h3 className="font-semibold">
@@ -200,9 +209,21 @@ export default function Auth() {
 
                   <div className="flex items-center gap-3">
 
-                    <div className="h-12 w-12 rounded-xl bg-yellow-400 flex items-center justify-center text-black font-bold">
-                      💳
-                    </div>
+                    <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-yellow-300 to-orange-400 flex items-center justify-center shadow-md">
+
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="h-6 w-6 text-black"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth={2}
+  >
+    <rect x="2" y="5" width="20" height="14" rx="2" />
+    <path d="M2 10h20" />
+  </svg>
+
+</div>
 
                     <div>
                       <h3 className="font-semibold">
