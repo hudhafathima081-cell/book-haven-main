@@ -13,11 +13,23 @@ const Library = () => {
   const [q, setQ] = useState("");
   const [filter, setFilter] = useState<Filter>("all");
 
-  useEffect(() => {
-    document.title = "Library — Lumen";
-    supabase.from("books").select("*").order("created_at", { ascending: false })
-      .then(({ data }) => setBooks((data as any) ?? []));
-  }, []);
+ useEffect(() => {
+  document.title = "Library — Lumen";
+
+  supabase
+    .from("books")
+    .select("*")
+    .order("created_at", { ascending: false })
+    .then(({ data, error }) => {
+      if (error) {
+        console.log(error);
+      } else {
+        setBooks(data as Book[]);
+      }
+    });
+
+}, []);
+
 
   const filtered = useMemo(() => {
     return books.filter((b) => {
