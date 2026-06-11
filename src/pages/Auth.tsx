@@ -4,7 +4,9 @@ import { useNavigate } from "react-router-dom";
 export default function Auth() {
   const navigate = useNavigate();
 
-  const [isSignup, setIsSignup] = useState(true);
+  const isAuthPage = window.location.pathname === "/auth";
+
+const [isSignup, setIsSignup] = useState(isAuthPage);
 
   return (
     <div className="min-h-screen bg-[#070B14] text-white flex items-center justify-center p-6">
@@ -245,7 +247,16 @@ export default function Auth() {
           )}
 
           <button
-            onClick={() => navigate("/library")}
+  onClick={() => {
+
+    alert(
+      isSignup
+        ? "🎉 Welcome to Lumen Premium!"
+        : "✅ Signed in successfully!"
+    );
+
+    navigate("/library");
+  }}
             className="w-full rounded-2xl bg-gradient-to-r from-orange-400 to-yellow-300 py-4 text-black font-semibold hover:opacity-90 transition mt-4 shadow-lg"
           >
             {isSignup
