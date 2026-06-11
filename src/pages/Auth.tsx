@@ -8,7 +8,7 @@ export default function Auth() {
 
   // auth = sign in
   // join = premium signup
-  const [isSignup, setIsSignup] = useState(!isAuthPage);
+  const [isSignup, setIsSignup] = useState(isAuthPage);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
