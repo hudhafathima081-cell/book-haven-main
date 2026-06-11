@@ -129,7 +129,7 @@ export default function Auth() {
 
                     <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white shadow-md">
 
-  <span className="text-lg font-semibold tracking-tight">
+  <span className="text-[9px] font-bold tracking-tight whitespace-nowrap">
     <span className="text-blue-500">G</span>
     <span className="text-red-500">o</span>
     <span className="text-yellow-500">o</span>
