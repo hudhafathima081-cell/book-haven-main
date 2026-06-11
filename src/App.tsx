@@ -8,6 +8,7 @@ import BookDetail from "./pages/BookDetail";
 import Auth from "./pages/Auth";
 import AdminBookForm from "./pages/AdminBookForm";
 import Reader from "./pages/Reader";
+import Join from "./pages/Join";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         {/* OLD LINKS REDIRECT */}
         <Route path="/signin" element={<Auth />} />
         <Route path="/join" element={<Auth />} />
+        <Route path="/join" element={<Join />} />
 
         <Route path="*" element={<NotFound />} />
 
