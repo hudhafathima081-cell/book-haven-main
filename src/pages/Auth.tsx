@@ -107,7 +107,7 @@ setTimeout(() => {
         <p className="text-gray-400 mb-8">
           {isSignup
             ? "Unlock premium books and luxury reading experience."
-            : "Sign in to continue reading premium books."}
+            : "Sign in to continue reading "}
         </p>
 
         <div className="space-y-5">

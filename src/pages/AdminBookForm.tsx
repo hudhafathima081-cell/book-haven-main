@@ -8,7 +8,6 @@ const AdminBookForm = () => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [coverUrl, setCoverUrl] = useState("");
-  const [pdfUrl, setPdfUrl] = useState("");
   const [price, setPrice] = useState(0);
   const [description, setDescription] = useState("");
 
@@ -20,7 +19,7 @@ const AdminBookForm = () => {
         title,
         author,
         cover_url: coverUrl,
-        pdf_url: pdfUrl,
+        
         price,
         description,
         format: "pdf",
@@ -68,13 +67,7 @@ const AdminBookForm = () => {
             className="w-full p-3 rounded bg-zinc-900"
           />
 
-          <input
-            type="text"
-            placeholder="PDF URL"
-            value={pdfUrl}
-            onChange={(e) => setPdfUrl(e.target.value)}
-            className="w-full p-3 rounded bg-zinc-900"
-          />
+          
 
           <textarea
             placeholder="Description"
