@@ -35,11 +35,22 @@ export default function Auth() {
     }
 
     // Success
-    alert(
-      isSignup
-        ? "Premium account created successfully!"
-        : "Signed in successfully!"
-    );
+    const message = isSignup
+  ? "Premium account created successfully!"
+  : "Signed in successfully!";
+
+const toast = document.createElement("div");
+
+toast.innerText = message;
+
+toast.className =
+  "fixed top-6 right-6 bg-black/80 text-white px-6 py-4 rounded-2xl border border-orange-400 shadow-2xl z-50 backdrop-blur-xl";
+
+document.body.appendChild(toast);
+
+setTimeout(() => {
+  toast.remove();
+}, 2500);
 
     navigate("/library");
   };
