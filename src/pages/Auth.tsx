@@ -6,13 +6,50 @@ export default function Auth() {
 
   const isAuthPage = window.location.pathname === "/auth";
 
-const [isSignup, setIsSignup] = useState(isAuthPage);
+  // auth = sign in
+  // join = premium signup
+  const [isSignup, setIsSignup] = useState(!isAuthPage);
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [fullName, setFullName] = useState("");
+
+  const handleSubmit = () => {
+
+    // Email validation
+    if (!email.includes("@") || !email.includes(".")) {
+      alert("Please enter a valid email address");
+      return;
+    }
+
+    // Password validation
+    if (password.length < 8) {
+      alert("Password must contain at least 8 characters");
+      return;
+    }
+
+    // Name validation for signup
+    if (isSignup && fullName.trim() === "") {
+      alert("Please enter your full name");
+      return;
+    }
+
+    // Success
+    alert(
+      isSignup
+        ? "Premium account created successfully!"
+        : "Signed in successfully!"
+    );
+
+    navigate("/library");
+  };
 
   return (
-    <div className="min-h-screen bg-[#070B14] text-white flex items-center justify-center p-6">
+    <div className="min-h-screen bg-[#070B14] text-white flex items-center justify-center p-6 overflow-hidden">
 
       {/* Background Glow */}
       <div className="absolute w-[500px] h-[500px] bg-orange-500/20 blur-[140px] rounded-full top-[-100px] left-[-100px]" />
+
       <div className="absolute w-[400px] h-[400px] bg-purple-500/20 blur-[140px] rounded-full bottom-[-100px] right-[-100px]" />
 
       <div className="relative w-full max-w-md rounded-[32px] border border-white/10 bg-white/5 backdrop-blur-2xl p-8 shadow-[0_0_80px_rgba(0,0,0,0.6)]">
@@ -22,22 +59,22 @@ const [isSignup, setIsSignup] = useState(isAuthPage);
 
           <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-[#ff9966] to-[#ff5e62] flex items-center justify-center shadow-[0_0_30px_rgba(255,120,80,0.45)]">
 
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    className="h-6 w-6 text-white"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2.2}
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M12 6v12m0-12c-1.5-2-4-3-7-3v15c3 0 5.5 1 7 3m0-15c1.5-2 4-3 7-3v15c-3 0-5.5 1-7 3"
-    />
-  </svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6 text-white"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2.2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 6v12m0-12c-1.5-2-4-3-7-3v15c3 0 5.5 1 7 3m0-15c1.5-2 4-3 7-3v15c-3 0-5.5 1-7 3"
+              />
+            </svg>
 
-</div>
+          </div>
 
           <div>
             <h2 className="text-2xl font-bold">
@@ -51,6 +88,7 @@ const [isSignup, setIsSignup] = useState(isAuthPage);
 
         </div>
 
+        {/* Heading */}
         <h1 className="text-4xl font-bold mb-2">
           {isSignup ? "Premium Access" : "Welcome Back"}
         </h1>
@@ -63,8 +101,10 @@ const [isSignup, setIsSignup] = useState(isAuthPage);
 
         <div className="space-y-5">
 
+          {/* SIGNUP ONLY */}
           {isSignup && (
             <>
+              {/* Full Name */}
               <div>
                 <label className="text-sm text-gray-300">
                   Full Name
@@ -72,11 +112,14 @@ const [isSignup, setIsSignup] = useState(isAuthPage);
 
                 <input
                   type="text"
-                  placeholder="Your name"
+                  placeholder="Your full name"
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
                   className="w-full mt-2 rounded-2xl bg-white/10 border border-white/10 px-4 py-3 outline-none focus:border-orange-300"
                 />
               </div>
 
+              {/* DOB */}
               <div>
                 <label className="text-sm text-gray-300">
                   Date of Birth
@@ -90,6 +133,7 @@ const [isSignup, setIsSignup] = useState(isAuthPage);
             </>
           )}
 
+          {/* Email */}
           <div>
             <label className="text-sm text-gray-300">
               Email
@@ -98,10 +142,13 @@ const [isSignup, setIsSignup] = useState(isAuthPage);
             <input
               type="email"
               placeholder="you@email.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full mt-2 rounded-2xl bg-white/10 border border-white/10 px-4 py-3 outline-none focus:border-orange-300"
             />
           </div>
 
+          {/* Password */}
           <div>
             <label className="text-sm text-gray-300">
               Password
@@ -110,6 +157,8 @@ const [isSignup, setIsSignup] = useState(isAuthPage);
             <input
               type="password"
               placeholder="At least 8 characters"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="w-full mt-2 rounded-2xl bg-white/10 border border-white/10 px-4 py-3 outline-none focus:border-orange-300"
             />
           </div>
@@ -125,26 +174,15 @@ const [isSignup, setIsSignup] = useState(isAuthPage);
               <div className="grid grid-cols-2 gap-4">
 
                 {/* Google Pay */}
-                <button className="rounded-2xl border border-white/10 bg-white/5 p-4 hover:border-orange-300 transition text-left">
-
+                <button
+                  type="button"
+                  className="rounded-2xl border border-white/10 bg-white/5 p-4 hover:border-orange-300 transition text-left"
+                >
                   <div className="flex items-center gap-3">
 
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white shadow-md">
-
-  <span className="text-[9px] font-bold tracking-tight whitespace-nowrap">
-    <span className="text-blue-500">G</span>
-    <span className="text-red-500">o</span>
-    <span className="text-yellow-500">o</span>
-    <span className="text-blue-500">g</span>
-    <span className="text-green-500">l</span>
-    <span className="text-red-500">e</span>
-
-    <span className="ml-1 text-black">
-      Pay
-    </span>
-  </span>
-
-</div>
+                    <div className="h-12 w-12 rounded-xl bg-white flex items-center justify-center text-black font-bold text-xs">
+                      GPay
+                    </div>
 
                     <div>
                       <h3 className="font-semibold">
@@ -157,15 +195,16 @@ const [isSignup, setIsSignup] = useState(isAuthPage);
                     </div>
 
                   </div>
-
                 </button>
 
                 {/* Paytm */}
-                <button className="rounded-2xl border border-white/10 bg-white/5 p-4 hover:border-cyan-300 transition text-left">
-
+                <button
+                  type="button"
+                  className="rounded-2xl border border-white/10 bg-white/5 p-4 hover:border-cyan-300 transition text-left"
+                >
                   <div className="flex items-center gap-3">
 
-                    <div className="h-12 w-12 rounded-xl bg-cyan-500 flex items-center justify-center text-sm font-bold text-white">
+                    <div className="h-12 w-12 rounded-xl bg-cyan-500 flex items-center justify-center text-white font-bold text-xs">
                       Paytm
                     </div>
 
@@ -180,12 +219,13 @@ const [isSignup, setIsSignup] = useState(isAuthPage);
                     </div>
 
                   </div>
-
                 </button>
 
                 {/* PhonePe */}
-                <button className="rounded-2xl border border-white/10 bg-white/5 p-4 hover:border-violet-300 transition text-left">
-
+                <button
+                  type="button"
+                  className="rounded-2xl border border-white/10 bg-white/5 p-4 hover:border-violet-300 transition text-left"
+                >
                   <div className="flex items-center gap-3">
 
                     <div className="h-12 w-12 rounded-xl bg-violet-600 flex items-center justify-center text-white font-bold">
@@ -203,29 +243,18 @@ const [isSignup, setIsSignup] = useState(isAuthPage);
                     </div>
 
                   </div>
-
                 </button>
 
                 {/* Credit Card */}
-                <button className="rounded-2xl border border-white/10 bg-white/5 p-4 hover:border-yellow-300 transition text-left">
-
+                <button
+                  type="button"
+                  className="rounded-2xl border border-white/10 bg-white/5 p-4 hover:border-yellow-300 transition text-left"
+                >
                   <div className="flex items-center gap-3">
 
-                    <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-yellow-300 to-orange-400 flex items-center justify-center shadow-md">
-
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    className="h-6 w-6 text-black"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2}
-  >
-    <rect x="2" y="5" width="20" height="14" rx="2" />
-    <path d="M2 10h20" />
-  </svg>
-
-</div>
+                    <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-yellow-300 to-orange-400 flex items-center justify-center text-black font-bold">
+                      💳
+                    </div>
 
                     <div>
                       <h3 className="font-semibold">
@@ -238,7 +267,6 @@ const [isSignup, setIsSignup] = useState(isAuthPage);
                     </div>
 
                   </div>
-
                 </button>
 
               </div>
@@ -246,17 +274,9 @@ const [isSignup, setIsSignup] = useState(isAuthPage);
             </div>
           )}
 
+          {/* Submit Button */}
           <button
-  onClick={() => {
-
-    alert(
-      isSignup
-        ? "🎉 Welcome to Lumen Premium!"
-        : "✅ Signed in successfully!"
-    );
-
-    navigate("/library");
-  }}
+            onClick={handleSubmit}
             className="w-full rounded-2xl bg-gradient-to-r from-orange-400 to-yellow-300 py-4 text-black font-semibold hover:opacity-90 transition mt-4 shadow-lg"
           >
             {isSignup
@@ -266,11 +286,13 @@ const [isSignup, setIsSignup] = useState(isAuthPage);
 
         </div>
 
+        {/* Bottom Switch */}
         <div className="mt-8 text-center text-sm text-gray-400">
 
           {isSignup ? (
             <>
               Already have an account?{" "}
+
               <button
                 onClick={() => setIsSignup(false)}
                 className="text-orange-300 hover:underline"
@@ -281,6 +303,7 @@ const [isSignup, setIsSignup] = useState(isAuthPage);
           ) : (
             <>
               New here?{" "}
+
               <button
                 onClick={() => setIsSignup(true)}
                 className="text-orange-300 hover:underline"
