@@ -56,7 +56,7 @@ export default function Join() {
           </div>
 
           <button
-            onClick={() => navigate("/library")}
+            onClick={() => navigate("/join")}
             className="w-full rounded-2xl bg-gradient-to-r from-orange-400 to-yellow-300 py-4 text-black font-semibold"
           >
             Create Free Account
