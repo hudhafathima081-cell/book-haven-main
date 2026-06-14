@@ -56,7 +56,7 @@ const Index = () => {
               </Button>
 
               <Button asChild size="lg" variant="outline" className="border-border/60 bg-transparent">
-                <Link to="/auth?mode=signup">Create free account</Link>
+                <Link to="/join">Create free account</Link>
               </Button>
             </div>
 
