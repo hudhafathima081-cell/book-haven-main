@@ -24,19 +24,24 @@ export default function Auth() {
 
     setLoading(true);
 
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+   const { data, error } = await supabase.auth.signInWithPassword({
+  email,
+  password,
+});
 
-    setLoading(false);
+setLoading(false);
 
-    if (error) {
-      setError("Invalid email or password.");
-      return;
-    }
+if (error) {
+  setError(error.message);
+  return;
+}
 
-    navigate(redirect);
+if (!data.session) {
+  setError("Login was not completed. Please try again.");
+  return;
+}
+
+navigate(redirect, { replace: true });
   };
 
   return (
