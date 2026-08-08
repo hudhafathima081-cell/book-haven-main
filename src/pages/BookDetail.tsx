@@ -86,7 +86,7 @@ const BookDetail = () => {
 
   const isFree = book.price === 0;
 
-  const canRead = isFree || owned;
+  const canRead = !!user && (isFree || owned);
 
   const handleBuy = async () => {
     if (!user) {
@@ -194,36 +194,38 @@ const BookDetail = () => {
             <div className="mt-8 flex flex-wrap gap-3">
 
               {canRead ? (
+  <Button
+    size="lg"
+    onClick={handleRead}
+    className="bg-yellow-500 hover:bg-yellow-400 text-black"
+  >
+    <BookOpen className="mr-2 h-4 w-4" />
+    Start Reading
+  </Button>
+) : (
+  <Button
+    size="lg"
+    onClick={() => {
+      if (!user) {
+        if (isFree) {
+          navigate("/join");
+        } else {
+          navigate(`/auth?redirect=/book/${book.id}`);
+        }
+        return;
+      }
 
-                <Button
-                  size="lg"
-                  onClick={handleRead}
-                  className="bg-yellow-500 hover:bg-yellow-400 text-black"
-                >
-                  <BookOpen className="mr-2 h-4 w-4" />
+      setPaymentOpen(true);
+    }}
+    className="bg-gradient-amber text-primary-foreground shadow-glow hover:opacity-95"
+  >
+    <Lock className="mr-1 h-4 w-4" />
 
-                  Start Reading
-                </Button>
-
-              ) : (
-
-               <Button
-  size="lg"
-  onClick={() => {
-    if (!user) {
-      navigate("/auth");
-      return;
-    }
-
-    setPaymentOpen(true);
-  }}
-  className="bg-gradient-amber text-primary-foreground shadow-glow hover:opacity-95"
->
-  <Lock className="mr-1 h-4 w-4" />
-  Unlock for ₹{book.price}
-</Button>
-
-              )}
+    {!user && isFree
+      ? "Join Free to Read"
+      : `Unlock for ₹${book.price}`}
+  </Button>
+)}
 
               {owned && (
 
