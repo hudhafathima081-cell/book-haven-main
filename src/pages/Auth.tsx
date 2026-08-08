@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { supabase } from "@/integrations/supabase/client";
 export default function Auth() {
   const navigate = useNavigate();
 
@@ -14,47 +14,64 @@ export default function Auth() {
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+  if (!email.includes("@") || !email.includes(".")) {
+    alert("Please enter a valid email address");
+    return;
+  }
 
-    // Email validation
-    if (!email.includes("@") || !email.includes(".")) {
-      alert("Please enter a valid email address");
+  if (password.length < 8) {
+    alert("Password must contain at least 8 characters");
+    return;
+  }
+
+  if (isSignup && fullName.trim() === "") {
+    alert("Please enter your full name");
+    return;
+  }
+
+  if (isSignup) {
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          full_name: fullName,
+        },
+      },
+    });
+
+    if (error) {
+      alert(error.message);
       return;
     }
 
-    // Password validation
-    if (password.length < 8) {
-      alert("Password must contain at least 8 characters");
-      return;
+    if (data.session) {
+      alert("Premium account created successfully!");
+      navigate("/library");
+    } else {
+      alert(
+        "Account created. Please check your email to confirm your account."
+      );
     }
 
-    // Name validation for signup
-    if (isSignup && fullName.trim() === "") {
-      alert("Please enter your full name");
-      return;
-    }
+    return;
+  }
 
-    // Success
-    const message = isSignup
-  ? "Premium account created successfully!"
-  : "Signed in successfully!";
+  const { error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
 
-const toast = document.createElement("div");
+  if (error) {
+    alert(error.message);
+    return;
+  }
 
-toast.innerText = message;
+  alert("Signed in successfully!");
 
-toast.className =
-  "fixed top-6 right-6 bg-black/80 text-white px-6 py-4 rounded-2xl border border-orange-400 shadow-2xl z-50 backdrop-blur-xl";
-
-document.body.appendChild(toast);
-
-setTimeout(() => {
-  toast.remove();
-}, 2500);
-
-    navigate("/library");
-  };
-
+  navigate("/library");
+};
   return (
     <div className="min-h-screen bg-[#070B14] text-white flex items-center justify-center p-6 overflow-hidden">
 
