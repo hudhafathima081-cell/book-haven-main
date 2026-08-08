@@ -193,7 +193,7 @@ const BookDetail = () => {
 
             <div className="mt-8 flex flex-wrap gap-3">
 
-              {canRead ? (
+             {canRead ? (
   <Button
     size="lg"
     onClick={handleRead}
@@ -202,28 +202,26 @@ const BookDetail = () => {
     <BookOpen className="mr-2 h-4 w-4" />
     Start Reading
   </Button>
+) : isFree ? (
+  <Button
+    size="lg"
+    onClick={() =>
+      navigate(`/auth?redirect=/book/${book.id}`)
+    }
+    className="bg-yellow-500 hover:bg-yellow-400 text-black"
+  >
+    <BookOpen className="mr-2 h-4 w-4" />
+    Join Free to Read
+  </Button>
 ) : (
   <Button
     size="lg"
-    onClick={() => {
-      if (!user) {
-        if (isFree) {
-          navigate("/join");
-        } else {
-          navigate(`/auth?redirect=/book/${book.id}`);
-        }
-        return;
-      }
-
-      setPaymentOpen(true);
-    }}
+    onClick={() =>  setPaymentOpen(true)}
+    
     className="bg-gradient-amber text-primary-foreground shadow-glow hover:opacity-95"
   >
     <Lock className="mr-1 h-4 w-4" />
-
-    {!user && isFree
-      ? "Join Free to Read"
-      : `Unlock for ₹${book.price}`}
+    Unlock for ₹{book.price}
   </Button>
 )}
 
