@@ -32,7 +32,8 @@ export default function Join() {
 
     setLoading(true);
 
-    const { data, error } = await supabase.auth.signUp({
+    const { data, error } = await 
+    supabase.auth.signUp({
       email,
       password,
       options: {
@@ -41,7 +42,8 @@ export default function Join() {
         },
       },
     });
-
+   console.log("SIGNUP RESULT:", data);
+   console.log("SIGNUP ERROR:", error);
     setLoading(false);
 
     if (error) {

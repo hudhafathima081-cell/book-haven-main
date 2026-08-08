@@ -86,7 +86,8 @@ const BookDetail = () => {
 
   const isFree = book.price === 0;
 
-  const canRead = !!user && (isFree || owned);
+  const canRead = isFree ? !!user : !! 
+  user && owned;
 
   const handleBuy = async () => {
     if (!user) {

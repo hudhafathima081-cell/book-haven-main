@@ -33,7 +33,6 @@ function App() {
 
         {/* OLD LINKS REDIRECT */}
         <Route path="/signin" element={<Auth />} />
-        <Route path="/join" element={<Auth />} />
         <Route path="/join" element={<Join />} />
         <Route path="/my-books" element={<MyBooks />} />
 
