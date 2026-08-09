@@ -15,9 +15,9 @@ import { useIsAdmin } from "./hooks/useIsAdmin";
 
 function AdminRoute({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
-  const isAdmin = useIsAdmin();
+  const { isAdmin, checkingAdmin } = useIsAdmin();
 
-  if (loading) {
+  if (loading || checkingAdmin) {
     return (
       <div className="min-h-screen bg-gradient-hero flex items-center justify-center text-white">
         Checking access...

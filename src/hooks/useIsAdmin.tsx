@@ -3,6 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 
 export const useIsAdmin = () => {
   const [isAdmin, setIsAdmin] = useState(false);
+  const [checkingAdmin, setCheckingAdmin] = useState(true);
 
   useEffect(() => {
     const checkAdmin = async () => {
@@ -11,21 +12,23 @@ export const useIsAdmin = () => {
 
         if (!data?.user) {
           setIsAdmin(false);
+          setCheckingAdmin(false);
           return;
         }
 
-        // Only this email will have Admin access
         const adminEmail = "hudhafathima081@gmail.com";
 
         setIsAdmin(data.user.email === adminEmail);
       } catch (err) {
         console.error("Error checking admin:", err);
         setIsAdmin(false);
+      } finally {
+        setCheckingAdmin(false);
       }
     };
 
     checkAdmin();
   }, []);
 
-  return isAdmin;
+  return { isAdmin, checkingAdmin };
 };
