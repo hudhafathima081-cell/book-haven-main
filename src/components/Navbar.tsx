@@ -85,23 +85,16 @@ export const Navbar = () => {
             </>
           ) : (
             <>
-              {/* SIGN IN */}
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => navigate("/auth")}
-              >
-                Sign in
-              </Button>
+             
 
-              {/* JOIN FREE */}
-              <Button
-                size="sm"
-                className="bg-gradient-amber text-primary-foreground hover:opacity-90"
-                onClick={() => navigate("/join")}
-              >
-                Join free
-              </Button>
+             {/* JOIN FREE */}
+<Button
+  size="sm"
+  className="bg-gradient-amber text-primary-foreground hover:opacity-90"
+  onClick={() => navigate("/join")}
+>
+  Join free
+</Button>
             </>
           )}
 
