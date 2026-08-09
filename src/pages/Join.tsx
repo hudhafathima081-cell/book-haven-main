@@ -17,23 +17,24 @@ export default function Join() {
   const [message, setMessage] = useState("");
 
   const handleJoin = async () => {
-    setError("");
-    setMessage("");
+  setError("");
+  setMessage("");
 
-    if (!name || !email || !password) {
-      setError("Please fill in all fields.");
-      return;
-    }
+  if (!email || !password) {
+    setError("Please enter your email and password.");
+    return;
+  }
 
-    if (password.length < 6) {
-      setError("Password must be at least 6 characters.");
-      return;
-    }
+  if (password.length < 6) {
+    setError("Password must be at least 6 characters.");
+    return;
+  }
 
-    setLoading(true);
+  setLoading(true);
 
-    const { data, error } = await 
-    supabase.auth.signUp({
+  // First try to create the account
+  const { data: signUpData, error: signUpError } =
+    await supabase.auth.signUp({
       email,
       password,
       options: {
@@ -42,25 +43,45 @@ export default function Join() {
         },
       },
     });
-   console.log("SIGNUP RESULT:", data);
-   console.log("SIGNUP ERROR:", error);
+
+  // Account already exists
+  if (signUpError) {
+    if (
+      signUpError.message.toLowerCase().includes("already") ||
+      signUpError.message.toLowerCase().includes("registered")
+    ) {
+      const { data: signInData, error: signInError } =
+        await supabase.auth.signInWithPassword({
+          email,
+          password,
+        });
+
+      setLoading(false);
+
+      if (signInError || !signInData.session) {
+        setError("This account already exists. Please check your password.");
+        return;
+      }
+
+      navigate(redirect, { replace: true });
+      return;
+    }
+
     setLoading(false);
+    setError(signUpError.message);
+    return;
+  }
 
-    if (error) {
-      setError(error.message);
-      return;
-    }
+  setLoading(false);
 
-    if (data.session) {
-      navigate(redirect);
-      return;
-    }
+  // New account successfully signed in
+  if (signUpData.session) {
+    navigate(redirect, { replace: true });
+    return;
+  }
 
-    setMessage(
-      "Account created successfully. Please check your email to confirm your account."
-    );
-  };
-
+  setMessage("Account created. Please sign in to continue.");
+};
   return (
     <div className="min-h-screen bg-[#070B14] flex items-center justify-center p-6 text-white">
 

@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
+import { AuthProvider } from "./hooks/useAuth";
 import Index from "./pages/Index";
 import Admin from "./pages/Admin";
 import Library from "./pages/Library";
@@ -13,6 +13,7 @@ import MyBooks from "./pages/MyBooks";
 
 function App() {
   return (
+    <AuthProvider>
     <Router>
       <Routes>
 
@@ -40,6 +41,7 @@ function App() {
 
       </Routes>
     </Router>
+    </AuthProvider>
   );
 }
 

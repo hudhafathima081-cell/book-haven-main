@@ -207,7 +207,7 @@ const BookDetail = () => {
   <Button
     size="lg"
     onClick={() =>
-      navigate(`/auth?redirect=/book/${book.id}`)
+      navigate(`/join?redirect=/book/${book.id}`)
     }
     className="bg-yellow-500 hover:bg-yellow-400 text-black"
   >

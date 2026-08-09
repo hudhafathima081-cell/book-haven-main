@@ -1,5 +1,5 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { BookOpen, LogOut, User as UserIcon, Shield } from "lucide-react";
+import { BookOpen, LogOut, Shield } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
 import { Button } from "@/components/ui/button";
@@ -12,7 +12,7 @@ const navItems = [
 
 export const Navbar = () => {
   const { user, signOut } = useAuth();
-  const  isAdmin  = useIsAdmin();
+  const isAdmin = useIsAdmin();
   const navigate = useNavigate();
 
   return (
@@ -55,8 +55,10 @@ export const Navbar = () => {
 
         {/* Right Side */}
         <div className="flex items-center gap-2">
+
           {user ? (
             <>
+              {/* ADMIN - ONLY VISIBLE TO ADMIN */}
               {isAdmin && (
                 <Button
                   variant="ghost"
@@ -68,15 +70,7 @@ export const Navbar = () => {
                 </Button>
               )}
 
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => navigate("/profile")}
-              >
-                <UserIcon className="h-4 w-4 mr-1" />
-                <span className="hidden sm:inline">Profile</span>
-              </Button>
-
+              {/* LOGOUT */}
               <Button
                 variant="ghost"
                 size="sm"
@@ -84,6 +78,7 @@ export const Navbar = () => {
                   await signOut();
                   navigate("/");
                 }}
+                title="Log out"
               >
                 <LogOut className="h-4 w-4" />
               </Button>
@@ -109,6 +104,7 @@ export const Navbar = () => {
               </Button>
             </>
           )}
+
         </div>
       </div>
     </header>
