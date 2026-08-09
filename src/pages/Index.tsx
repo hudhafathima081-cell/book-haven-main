@@ -19,7 +19,7 @@ const Index = () => {
       .from("books")
       .select("*")
       .order("created_at", { ascending: false })
-      .limit(6)
+      .limit(20)
       .then(({ data }) => setBooks((data as any) ?? []));
   }, []);
 
@@ -93,11 +93,18 @@ const Index = () => {
           </Button>
         </div>
 
-        <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-6">
-          {books.map((b) => (
-            <BookCard key={b.id} book={b} />
-          ))}
-        </div>
+        <div className="relative">
+  <div className="flex gap-6 overflow-x-auto pb-6 snap-x snap-mandatory scrollbar-hide">
+    {books.map((b) => (
+      <div
+        key={b.id}
+        className="flex-none w-[180px] sm:w-[200px] lg:w-[220px] snap-start"
+      >
+        <BookCard book={b} />
+      </div>
+    ))}
+  </div>
+</div>
       </section>
 
       {/* Why */}

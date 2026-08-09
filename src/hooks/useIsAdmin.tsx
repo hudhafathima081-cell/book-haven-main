@@ -3,33 +3,31 @@ import { supabase } from "@/integrations/supabase/client";
 
 export const useIsAdmin = () => {
   const [isAdmin, setIsAdmin] = useState(false);
+  const [checkingAdmin, setCheckingAdmin] = useState(true);
 
   useEffect(() => {
     const checkAdmin = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
+      try {
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
 
-      const adminEmail = "hudhafathima081@gmail.com";
+        const adminEmail = "hudhafathima081@gmail.com";
 
-      setIsAdmin(
-        user?.email?.toLowerCase().trim() === adminEmail.toLowerCase()
-      );
+        setIsAdmin(
+          user?.email?.toLowerCase().trim() ===
+            adminEmail.toLowerCase().trim()
+        );
+      } catch (error) {
+        console.error("Admin check error:", error);
+        setIsAdmin(false);
+      } finally {
+        setCheckingAdmin(false);
+      }
     };
 
     checkAdmin();
-
-    // Re-check whenever login/logout happens
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange(() => {
-      checkAdmin();
-    });
-
-    return () => {
-      subscription.unsubscribe();
-    };
   }, []);
 
-  return isAdmin;
+  return { isAdmin, checkingAdmin };
 };

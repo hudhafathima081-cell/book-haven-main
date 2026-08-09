@@ -12,7 +12,7 @@ const navItems = [
 
 export const Navbar = () => {
   const { user, signOut } = useAuth();
-  const isAdmin = useIsAdmin();
+  const { isAdmin }= useIsAdmin();
   const navigate = useNavigate();
 
   return (
