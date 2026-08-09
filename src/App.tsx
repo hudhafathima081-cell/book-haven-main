@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./hooks/useAuth";
 import Index from "./pages/Index";
 import Admin from "./pages/Admin";
@@ -10,7 +10,27 @@ import AdminBookForm from "./pages/AdminBookForm";
 import Reader from "./pages/Reader";
 import Join from "./pages/Join";
 import MyBooks from "./pages/MyBooks";
+import { useAuth } from "./hooks/useAuth";
+import { useIsAdmin } from "./hooks/useIsAdmin";
 
+function AdminRoute({ children }: { children: React.ReactNode }) {
+  const { user, loading } = useAuth();
+  const isAdmin = useIsAdmin();
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-hero flex items-center justify-center text-white">
+        Checking access...
+      </div>
+    );
+  }
+
+  if (!user || !isAdmin) {
+    return <Navigate to="/" replace />;
+  }
+
+  return <>{children}</>;
+}
 function App() {
   return (
     <AuthProvider>
@@ -25,9 +45,23 @@ function App() {
 
         <Route path="/reader/:id" element={<Reader />} />
 
-        <Route path="/admin" element={<Admin />} />
+        <Route
+  path="/admin"
+  element={
+    <AdminRoute>
+      <Admin />
+    </AdminRoute>
+  }
+/>
 
-        <Route path="/admin/books/new" element={<AdminBookForm />} />
+        <Route
+  path="/admin/books/new"
+  element={
+    <AdminRoute>
+      <AdminBookForm />
+    </AdminRoute>
+  }
+/>
 
         {/* AUTH */}
         <Route path="/auth" element={<Auth />} />
